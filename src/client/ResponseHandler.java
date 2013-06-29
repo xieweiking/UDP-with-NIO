@@ -4,6 +4,6 @@ import java.nio.ByteBuffer;
 
 public interface ResponseHandler {
 
-    ByteBuffer onResponse(ByteBuffer receivedBuff, ClientHandlerContext ctx) throws Throwable;
+    ByteBuffer onResponse(ByteBuffer receivedBuff, ResponseContext ctx) throws Throwable;
 
 }

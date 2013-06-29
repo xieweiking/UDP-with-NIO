@@ -4,10 +4,10 @@ import java.nio.charset.Charset;
 import server.RequestHandler;
 import server.Server;
 import server.ServerContext;
-import server.ServerHandlerContext;
+import server.RequestContext;
 import client.Client;
 import client.ClientContext;
-import client.ClientHandlerContext;
+import client.ResponseContext;
 import client.ResponseHandler;
 import core.Signal;
 
@@ -18,7 +18,7 @@ public class Test {
     public static void main(final String... args) throws Exception {
         Server.listen(5057, new ServerContext("你妹").addHandler("停鸡", new RequestHandler() {
 
-            public ByteBuffer onRequest(final ByteBuffer received, final ServerHandlerContext ctx) throws Throwable {
+            public ByteBuffer onRequest(final ByteBuffer received, final RequestContext ctx) throws Throwable {
                 if (received.remaining() == 16 && received.getLong() == 0 && received.getLong() == 0) {
                     ctx.getBoss().multicast(CHARSET.encode("好歌一生伴着你"));
                     throw Signal.SHUTDOWN;
@@ -28,7 +28,7 @@ public class Test {
 
         }).addHandler("唱", new RequestHandler() {
 
-            public ByteBuffer onRequest(final ByteBuffer received, final ServerHandlerContext ctx) throws Throwable {
+            public ByteBuffer onRequest(final ByteBuffer received, final RequestContext ctx) throws Throwable {
                 final String lyric = CHARSET.decode(received).toString();
                 System.out.println("我哥: " + lyric);
                 return CHARSET.encode("好歌献给你～".equals(lyric) ? "愿你藏心里～" : "我活在歌声里");
@@ -38,7 +38,7 @@ public class Test {
 
         Client.connect(5057, new ClientContext("我哥").addHandler("唱", new ResponseHandler() {
 
-            public ByteBuffer onResponse(final ByteBuffer received, final ClientHandlerContext ctx) throws Throwable {
+            public ByteBuffer onResponse(final ByteBuffer received, final ResponseContext ctx) throws Throwable {
                 final String lyric = CHARSET.decode(received).toString();
                 System.out.println("你妹: " + lyric);
                 if ("愿你藏心里～".equals(lyric)) {

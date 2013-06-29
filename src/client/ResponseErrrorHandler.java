@@ -2,6 +2,6 @@ package client;
 
 import core.ErrorHandler;
 
-public interface ResponseErrrorHandler extends ErrorHandler<ClientHandlerContext> {
+public interface ResponseErrrorHandler extends ErrorHandler<ResponseContext> {
 
 }

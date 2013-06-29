@@ -4,6 +4,6 @@ import java.nio.ByteBuffer;
 
 public interface RequestHandler {
 
-    ByteBuffer onRequest(ByteBuffer receivedBuff, ServerHandlerContext ctx) throws Throwable;
+    ByteBuffer onRequest(ByteBuffer receivedBuff, RequestContext ctx) throws Throwable;
 
 }

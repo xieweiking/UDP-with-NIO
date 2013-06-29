@@ -13,7 +13,7 @@ import java.util.Set;
 
 import core.Boss;
 
-public class Server extends Boss<ServerHandlerContext, ServerHandler, ServerContext, Server> {
+public class Server extends Boss<RequestContext, ServerHandler, ServerContext, Server> {
 
     protected Server(final String host, final int port, final ServerContext context) throws IOException {
         super(host, port, context);

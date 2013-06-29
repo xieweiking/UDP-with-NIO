@@ -6,7 +6,7 @@ import java.nio.channels.DatagramChannel;
 
 import core.Worker;
 
-public class ServerWorker extends Worker<ServerHandlerContext, ServerHandler, ServerContext, Server> {
+public class ServerWorker extends Worker<RequestContext, ServerHandler, ServerContext, Server> {
 
     protected ServerWorker(final Server server, final DatagramChannel channel) throws IOException {
         super(server, channel);
@@ -22,8 +22,8 @@ public class ServerWorker extends Worker<ServerHandlerContext, ServerHandler, Se
         return clientAddr;
     }
 
-    protected ServerHandlerContext createHandlerContext(final Server server, final DatagramChannel channel, final SocketAddress addr) {
-        return new ServerHandlerContext(server, channel, addr, this.context);
+    protected RequestContext createHandlerContext(final Server server, final DatagramChannel channel, final SocketAddress addr) {
+        return new RequestContext(server, channel, addr, this.context);
     }
 
 }

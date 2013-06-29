@@ -8,7 +8,7 @@ import java.nio.channels.DatagramChannel;
 
 import core.Boss;
 
-public class Client extends Boss<ClientHandlerContext, ClientHandler, ClientContext, Client> {
+public class Client extends Boss<ResponseContext, ClientHandler, ClientContext, Client> {
 
     private DatagramChannel channel;
 

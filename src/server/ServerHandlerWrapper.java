@@ -10,12 +10,12 @@ public class ServerHandlerWrapper extends ServerHandler {
         this.handler = handler;
     }
 
-    public ByteBuffer onRequest(final ByteBuffer receivedBuff, final ServerHandlerContext ctx) throws Throwable {
+    public ByteBuffer onRequest(final ByteBuffer receivedBuff, final RequestContext ctx) throws Throwable {
         return this.handler.onRequest(receivedBuff, ctx);
     }
 
     @Override
-    public void onError(final Throwable t, final ServerHandlerContext ctx) {
+    public void onError(final Throwable t, final RequestContext ctx) {
         if (this.handler instanceof RequestErrorHandler) {
             ((RequestErrorHandler) this.handler).onError(t, ctx);
         }
