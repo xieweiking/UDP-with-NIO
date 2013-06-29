@@ -54,12 +54,11 @@ public class Server extends Boss<RequestContext, ServerHandler, ServerContext, S
             if (!channel.isConnected()) {
                 channel = channel.connect(addr);
             }
-            if (buff.position() != 0) {
-                buff.flip();
-            }
+            buff.mark();
             while (channel.isOpen() && buff.hasRemaining()) {
                 channel.write(buff);
             }
+            buff.reset();
         }
     }
 

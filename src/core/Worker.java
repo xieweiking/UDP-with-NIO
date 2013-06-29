@@ -12,10 +12,10 @@ public abstract class Worker<WCTX extends WorkerContext<?, BOSS>,
                              BCTX extends BossContext<HANDLER>,
                              BOSS extends Boss<WCTX, HANDLER, BCTX, BOSS>> implements Runnable {
 
-    protected final Logger logger;
-    protected final BOSS boss;
-    protected final BCTX context;
-    protected final WCTX workerCtx;
+    protected final Logger     logger;
+    protected final BOSS       boss;
+    protected final BCTX       context;
+    protected final WCTX       workerCtx;
     protected final ByteBuffer receiveBuff;
 
     public Worker(final BOSS boss, final DatagramChannel channel) throws IOException {
@@ -50,7 +50,9 @@ public abstract class Worker<WCTX extends WorkerContext<?, BOSS>,
                             }
                             final HANDLER handler = entry.getValue();
                             try {
-                                handler.handle(this.receiveBuff.duplicate(), this.workerCtx);
+                                this.receiveBuff.mark();
+                                handler.handle(this.receiveBuff, this.workerCtx);
+                                this.receiveBuff.reset();
                             }
                             catch (final Throwable t) {
                                 if (t instanceof Signal) {
@@ -84,6 +86,7 @@ public abstract class Worker<WCTX extends WorkerContext<?, BOSS>,
             }
         }
         this.workerCtx.destroy();
+        this.receiveBuff.clear();
     }
 
 }
