@@ -9,8 +9,7 @@ public class RequestContext extends WorkerContext<ServerContext, Server> {
 
     private final SocketAddress clientAddr;
 
-    public RequestContext(final Server server, final DatagramChannel channel, final SocketAddress clientAddr,
-                                final ServerContext context) {
+    public RequestContext(final Server server, final DatagramChannel channel, final SocketAddress clientAddr, final ServerContext context) {
         super(server, channel, context);
         this.clientAddr = clientAddr;
     }
