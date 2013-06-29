@@ -83,7 +83,7 @@ public abstract class BossContext<HANDLER extends Handler<?>> {
         this.channelCollector.add(channel);
     }
 
-    protected int getBuffSize() {
+    protected int getBufferSize() {
         return this.buffSize;
     }
 

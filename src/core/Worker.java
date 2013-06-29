@@ -21,7 +21,7 @@ public abstract class Worker<WCTX extends WorkerContext<?, BOSS>,
     public Worker(final BOSS boss, final DatagramChannel channel) throws IOException {
         this.boss = boss;
         this.context = boss.getContext();
-        this.receiveBuff = ByteBuffer.allocate(this.context.getBuffSize());
+        this.receiveBuff = ByteBuffer.allocate(this.context.getBufferSize());
         final SocketAddress addr = this.receiveData(channel);
         this.receiveBuff.flip();
         this.context.collectChannel(channel);

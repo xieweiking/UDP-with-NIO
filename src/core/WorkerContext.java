@@ -48,11 +48,11 @@ public abstract class WorkerContext<BCTX extends BossContext<?>, BOSS extends Bo
     }
 
     public ByteBuffer createBuffer() {
-        return ByteBuffer.allocate(this.getBossContext().getBuffSize());
+        return ByteBuffer.allocate(this.getBossContext().getBufferSize());
     }
 
     public ByteBuffer wrapToBuffer(final byte[] array) {
-        return ByteBuffer.wrap(array, 0, Math.min(array.length, this.getBossContext().getBuffSize()));
+        return ByteBuffer.wrap(array, 0, Math.min(array.length, this.getBossContext().getBufferSize()));
     }
 
     protected void destroy() {
