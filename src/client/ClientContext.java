@@ -4,8 +4,7 @@ import core.BossContext;
 
 public class ClientContext extends BossContext<ClientHandler> {
 
-    public ClientContext(final String name, final int buffSize, final Integer bossThread,
-                         final Integer workerThread) {
+    public ClientContext(final String name, final int buffSize, final Integer bossThread, final Integer workerThread) {
         super(name, buffSize, bossThread, workerThread);
     }
 
@@ -29,6 +28,10 @@ public class ClientContext extends BossContext<ClientHandler> {
     public ClientContext addHandler(final String name, final ClientHandler handler) {
         super.addHandler(name, handler);
         return this;
+    }
+
+    public ClientContext addHandler(final String name, final ResponseHandler handler) {
+        return this.addHandler(name, new ClientHandlerWrapper(handler));
     }
 
 }

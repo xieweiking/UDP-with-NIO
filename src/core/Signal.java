@@ -6,10 +6,14 @@ public abstract class Signal extends Throwable {
 
     public static final Signal FINISH = new FINISH(), SHUTDOWN = new SHUTDOWN(), CONTINUE = new CONTINUE();
 
-    public final String label;
+    public final String        label;
 
     public Signal(final String label) {
         this.label = label;
+    }
+
+    public static JUMP jumpTo(final String handler) {
+        return new JUMP(handler);
     }
 
     @Override
@@ -81,10 +85,10 @@ public abstract class Signal extends Throwable {
     public static class JUMP extends Signal {
 
         private static final long serialVersionUID = 4308582408239023856L;
-        
-        public static final int LIMIT = 256;
 
-        public final String handler;
+        public static final int   LIMIT            = 256;
+
+        public final String       handler;
 
         public JUMP(final String handlerName) {
             super("JUMP");

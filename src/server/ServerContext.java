@@ -38,6 +38,10 @@ public class ServerContext extends BossContext<ServerHandler> {
         return this;
     }
 
+    public ServerContext addHandler(final String name, final RequestHandler handler) {
+        return this.addHandler(name, new ServerHandlerWrapper(handler));
+    }
+
     @Override
     protected void destroy() {
         this.clientChannel.clear();

@@ -30,10 +30,6 @@ public abstract class AbstractHandler<WCTX extends WorkerContext<?, ?>> implemen
 
     protected abstract void doOutput(ByteBuffer outBuff, WCTX ctx) throws Throwable;
 
-    protected void jumpTo(final String handler) throws Signal.JUMP {
-        throw new Signal.JUMP(handler);
-    }
-
     public void onError(final Throwable t, final WCTX ctx) {
         final DatagramChannel channel = ctx.getChannel();
         final DatagramSocket socket = channel.socket();
