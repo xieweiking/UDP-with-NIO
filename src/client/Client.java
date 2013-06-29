@@ -19,7 +19,7 @@ public class Client extends Boss<ResponseContext, ClientHandler, ClientContext, 
     public void send(final ByteBuffer buff) throws IOException {
         if (this.channel.isOpen() && this.channel.isConnected()) {
             if (buff.position() != 0) {
-                buff.flip();
+                buff.position(0);
             }
             while (buff.hasRemaining()) {
                 this.channel.write(buff);

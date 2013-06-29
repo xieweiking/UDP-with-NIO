@@ -21,6 +21,9 @@ public class Server extends Boss<RequestContext, ServerHandler, ServerContext, S
 
     public void multicast(final ByteBuffer buff) throws IOException {
         final Set<SocketAddress> removing = new HashSet<SocketAddress>();
+        if (buff.position() != 0) {
+            buff.position(0);
+        }
         for (final Map.Entry<SocketAddress, DatagramChannel> entry : this.context.clientChannel.entrySet()) {
             final SocketAddress addr = entry.getKey();
             final DatagramChannel channel = entry.getValue();
@@ -44,6 +47,9 @@ public class Server extends Boss<RequestContext, ServerHandler, ServerContext, S
             channel = DatagramChannel.open();
             this.context.collectChannel(channel);
             this.context.clientChannel.put(addr, channel);
+        }
+        if (buff.position() != 0) {
+            buff.position(0);
         }
         this.singlecast(addr, channel, buff);
         buff.clear();
