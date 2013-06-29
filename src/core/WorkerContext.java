@@ -36,7 +36,7 @@ public abstract class WorkerContext<BCTX extends BossContext<?>, BOSS extends Bo
     }
 
     public boolean hasAttribute(final String key, final Class<?> clazz) {
-        return this.hasAttribute(key) && clazz.equals(this.getAttribute(key).getClass());
+        return this.hasAttribute(key) && clazz.isAssignableFrom(this.getAttribute(key).getClass());
     }
 
     public Object getAttribute(final String key) {
